@@ -1,5 +1,6 @@
 # MerkleTree
-A Java implemetation of a AVL tree. Can and should be used with jTMSP for storing transactions.
+A Java implemetation of an AVL tree. 
+Can and should be used with jTMSP for storing transactions.
 
 
 ## How to use
