@@ -61,4 +61,17 @@ public class ByteableLong implements IByteable {
         return -1;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null && obj instanceof ByteableLong) {
+            return value == ((ByteableLong) obj).value;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "" + value;
+    }
+
 }

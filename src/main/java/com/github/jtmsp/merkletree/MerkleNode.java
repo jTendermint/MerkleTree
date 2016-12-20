@@ -103,7 +103,7 @@ public class MerkleNode<K extends IByteable> {
         else if (this.height == 0)
             return null;
         else {
-            if (key.compareTo(entry) < 0) {
+            if (entry.compareTo(key) < 0) {
                 return this.leftChildNode.get(entry);
             } else {
                 return this.rightChildNode.get(entry);
