@@ -38,7 +38,7 @@ public interface IterateFunction<K extends IByteable> {
      * Check with node.isLeafNode() if its an actual data node 
      * 
      * @param node the current Node
-     * @return <code>true</code> continues to iterate, <code>false</code> stops iterating
+     * @return <code>true</code> stops iteration, <code>false</code> continues iteration
      */
     public boolean currentNode(MerkleNode<K> node);
 }

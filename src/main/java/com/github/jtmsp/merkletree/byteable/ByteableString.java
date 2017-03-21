@@ -57,5 +57,10 @@ public class ByteableString implements IByteable {
             return string.compareTo(((ByteableString) other).string);
         return -1;
     }
+    
+    @Override
+    public String toString() {
+        return string;
+    }
 
 }

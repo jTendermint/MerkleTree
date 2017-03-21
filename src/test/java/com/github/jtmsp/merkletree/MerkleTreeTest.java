@@ -29,6 +29,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.github.jtmsp.merkletree.byteable.ByteableLong;
+import com.github.jtmsp.merkletree.byteable.ByteableString;
 import com.github.jtmsp.merkletree.crypto.ByteUtil;
 
 public class MerkleTreeTest {
@@ -67,4 +68,28 @@ public class MerkleTreeTest {
         });
 
     }
+
+    @Test
+    public void testIteration() {
+
+        IMerkleTree<ByteableString> tree = new MerkleTree<ByteableString>();
+        tree.add(new ByteableString("String1"));
+        tree.add(new ByteableString("String2"));
+        tree.add(new ByteableString("String3"));
+
+        System.out.println("String node: " + tree.toPrettyString());
+
+        tree.iterateNodes(new IterateFunction<ByteableString>() {
+
+            @Override
+            public boolean currentNode(MerkleNode<ByteableString> node) {
+                System.out.println(node.getKey().string);
+
+                return false;
+            }
+        });
+
+        System.out.println("\n\n");
+    }
+
 }
