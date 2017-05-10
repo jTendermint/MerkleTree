@@ -23,6 +23,8 @@
  */
 package com.github.jtmsp.merkletree.crypto;
 
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
@@ -47,6 +49,13 @@ public class RipeMD160 {
         // only static usage
     }
 
+    /**
+     * Hashes a byte[] with RipeMD160
+     * 
+     * @param bytesToHash
+     *            arbitrary byte array
+     * @return byte[] containing hash
+     */
     public static byte[] hash(byte[] bytesToHash) {
         try {
             MessageDigest md = MessageDigest.getInstance("RIPEMD160");
@@ -57,13 +66,62 @@ public class RipeMD160 {
         return null;
     }
 
+    /**
+     * Hashes a byte[] with RipeMD160
+     * 
+     * @param bytesToHash
+     *            arbitrary byte array
+     * @return Base64-encoded hash
+     */
     public static String hashToBase64(byte[] bytesToHash) {
         byte[] hashed = hash(bytesToHash);
         return Base64.getEncoder().encodeToString(hashed);
     }
 
+    /**
+     * Hashes a byte[] with RipeMD160
+     * 
+     * @param bytesToHash
+     *            arbitrary byte array
+     * @return Hex-Encoded String hash
+     */
     public static String hashToStringBytes(byte[] bytesToHash) {
         return ByteUtil.toString(hash(bytesToHash), ByteFormat.FORMAT_00);
+    }
+
+    /**
+     * Hashes the byte[] of a TX, by appending TM's custom length+lengthOfLenght+byte[] format
+     * 
+     * @param tx
+     *            Tendermint transaction byte[]
+     * @return hash of tx
+     */
+    public static byte[] hashTx(byte[] tx) {
+        int length = tx.length;
+
+        BigInteger bigInt = BigInteger.valueOf(length);
+        byte[] lengthlength = bigInt.toByteArray();
+
+        byte b = new Integer(length).byteValue();
+
+        ByteBuffer buff = ByteBuffer.allocate(1 + lengthlength.length + tx.length);
+
+        buff.put(b);
+        buff.put(lengthlength);
+        buff.put(tx);
+
+        return hash(buff.array());
+    }
+
+    /**
+     * Hashes the byte[] of a TX, by appending TM's custom length+lengthOfLenght+byte[] format
+     * 
+     * @param tx
+     *            Tendermint transaction byte[]
+     * @return Hex-Encoded String hash
+     */
+    public static String hashTxToStringBytes(byte[] tx) {
+        return ByteUtil.toString00(hashTx(tx));
     }
 
 }
