@@ -6,6 +6,13 @@
 	<groupId>com.github.jtmsp</groupId>
 	<artifactId>MerkleTree</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -22,11 +29,10 @@
 	</build>
 
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
 		<dependency>
-			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
-			<version>1.54</version>
+			<groupId>com.github.jtendermint</groupId>
+			<artifactId>crypto</artifactId>
+			<version>-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>

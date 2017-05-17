@@ -28,9 +28,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.github.jtendermint.crypto.ByteUtil;
 import com.github.jtmsp.merkletree.byteable.ByteableLong;
 import com.github.jtmsp.merkletree.byteable.ByteableString;
-import com.github.jtmsp.merkletree.crypto.ByteUtil;
 
 public class MerkleTreeTest {
 

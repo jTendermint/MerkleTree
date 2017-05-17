@@ -29,9 +29,9 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Objects;
 
+import com.github.jtendermint.crypto.ByteUtil;
+import com.github.jtendermint.crypto.RipeMD160;
 import com.github.jtmsp.merkletree.byteable.IByteable;
-import com.github.jtmsp.merkletree.crypto.ByteUtil;
-import com.github.jtmsp.merkletree.crypto.RipeMD160;
 
 public class MerkleNode<K extends IByteable> {
 
