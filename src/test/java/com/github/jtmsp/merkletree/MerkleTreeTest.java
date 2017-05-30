@@ -23,9 +23,15 @@
  */
 package com.github.jtmsp.merkletree;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import com.github.jtendermint.crypto.ByteUtil;
@@ -34,62 +40,137 @@ import com.github.jtmsp.merkletree.byteable.ByteableString;
 
 public class MerkleTreeTest {
 
-    @Test
-    public void testBasic() {
+    private IMerkleTree<ByteableString> stringTree;
+    private IMerkleTree<ByteableLong> longTree;
 
+    @Before
+    public void setup() {
+        stringTree = new MerkleTree<ByteableString>();
+        longTree = new MerkleTree<ByteableLong>();
+    }
+
+    @Test
+    public void testTreeUpdate() {
         boolean update;
 
-        IMerkleTree<ByteableLong> tree = new MerkleTree<ByteableLong>();
-
-        update = tree.add(new ByteableLong(1));
+        update = longTree.add(new ByteableLong(1));
         assertFalse("Did not expect an update (should have been create)", update);
 
-        System.out.println(tree.toPrettyString());
-        update = tree.add(new ByteableLong(2));
+        update = longTree.add(new ByteableLong(2));
         assertFalse("Did not expect an update (should have been create)", update);
 
-        System.out.println(tree.toPrettyString());
-        update = tree.add(new ByteableLong(2));
+        update = longTree.add(new ByteableLong(2));
         assertTrue("Expected an update", update);
 
-        System.out.println(tree.toPrettyString());
-        update = tree.add(new ByteableLong(5));
+        update = longTree.add(new ByteableLong(5));
         assertFalse("Did not expect an update (should have been create)", update);
 
-        System.out.println(tree.toPrettyString());
-
-        tree.iterateNodes(node -> {
-            if (node.isLeafNode()) {
-                System.out.println(ByteUtil.toString00(node.getKey().toByteArray()));
-            } else {
-                System.out.println("tree node");
-            }
-            return false;
-        });
-
+        assertEquals("(1 (2 5))", longTree.toPrettyString());
     }
 
     @Test
     public void testIteration() {
+        // instantly returns false, because no root element
+        assertFalse(stringTree.iterateNodes(node -> true));
 
-        IMerkleTree<ByteableString> tree = new MerkleTree<ByteableString>();
-        tree.add(new ByteableString("String1"));
-        tree.add(new ByteableString("String2"));
-        tree.add(new ByteableString("String3"));
+        stringTree.add(new ByteableString("String1"));
+        stringTree.add(new ByteableString("String2"));
+        stringTree.add(new ByteableString("String3"));
 
-        System.out.println("String node: " + tree.toPrettyString());
+        ArrayList<String> hitItems = new ArrayList<>();
 
-        tree.iterateNodes(new IterateFunction<ByteableString>() {
-
+        stringTree.iterateNodes(new IterateFunction<ByteableString>() {
             @Override
             public boolean currentNode(MerkleNode<ByteableString> node) {
-                System.out.println(node.getKey().string);
-
+                if (node.isLeafNode())
+                    hitItems.add(node.getKey().string);
                 return false;
             }
         });
 
-        System.out.println("\n\n");
+        assertEquals(3, hitItems.size());
+        assertTrue(hitItems.contains("String1"));
+        assertTrue(hitItems.contains("String2"));
+        assertTrue(hitItems.contains("String3"));
+    }
+
+    @Test
+    public void testSize() {
+        assertEquals(0, stringTree.size());
+        stringTree.add(new ByteableString("test"));
+        assertEquals(1, stringTree.size());
+    }
+
+    @Test
+    public void testHeight() {
+        assertEquals(0, stringTree.getHeight());
+
+        stringTree.add(new ByteableString("1"));
+        assertEquals(0, stringTree.getHeight());
+
+        stringTree.add(new ByteableString("2"));
+        assertEquals(1, stringTree.getHeight());
+
+        stringTree.add(new ByteableString("3"));
+        stringTree.add(new ByteableString("4"));
+        assertEquals(2, stringTree.getHeight());
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testGetAndRemove() {
+        assertNull(stringTree.get(new ByteableString("test")));
+        assertNull(stringTree.get(0));
+
+        stringTree.add(new ByteableString("test"));
+        assertNotNull(stringTree.get(new ByteableString("test")));
+        assertNotNull(stringTree.get(0));
+
+        stringTree.remove(new ByteableString("test")); // throws UnsupportedOperationException
+        assertNull(stringTree.get(new ByteableString("test")));
+
+    }
+
+    @Test
+    public void testGetRootHash() {
+        assertFalse(stringTree.contains(new ByteableString("test")));
+        assertNull(stringTree.getRootHash());
+
+        stringTree.add(new ByteableString("test"));
+        assertEquals("C9893DAFCECB4E9FF86BF16501397E4A2DC8B9E5", ByteUtil.toString00(stringTree.getRootHash()));
+
+        assertEquals(new ByteableString("test"), stringTree.getRoot().getKey());
+
+        assertTrue(stringTree.contains(new ByteableString("test")));
+        assertFalse(stringTree.contains(new ByteableString("nottest")));
+    }
+
+    @Test
+    public void testToPrettyString() {
+        assertEquals("()", stringTree.toPrettyString());
+        stringTree.add(new ByteableString("1"));
+        stringTree.add(new ByteableString("2"));
+        assertEquals("(49 50)", stringTree.toPrettyString());
+    }
+
+    @Test
+    public void testHashWithCount() {
+
+        HashWithCount hwc = longTree.getHashWithCount();
+        assertNull(hwc.hash);
+        assertEquals(0, hwc.count);
+
+        longTree.add(new ByteableLong(1l));
+
+        hwc = longTree.getHashWithCount();
+        assertEquals(1, hwc.count);
+        assertEquals("8F7EA991CBC6B6FDCE27D02DC9A3297AF102F94B", ByteUtil.toString00(hwc.hash));
+
+        longTree.add(new ByteableLong(2l));
+
+        hwc = longTree.getHashWithCount();
+        assertEquals(2, hwc.count);
+        assertEquals("E9CD625EBC02C8602B8E0DC8861B9E4B480757BA", ByteUtil.toString00(hwc.hash));
+
     }
 
 }

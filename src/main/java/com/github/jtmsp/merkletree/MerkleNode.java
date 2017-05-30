@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import com.github.jtendermint.crypto.ByteUtil;
+import com.github.jtendermint.crypto.HashFunction;
 import com.github.jtendermint.crypto.RipeMD160;
 import com.github.jtmsp.merkletree.byteable.IByteable;
 
@@ -45,6 +46,8 @@ public class MerkleNode<K extends IByteable> {
 
     private MerkleNode<K> leftChildNode;
     private MerkleNode<K> rightChildNode;
+    
+    protected HashFunction hashFunction = new RipeMD160();
 
     public MerkleNode(K key) {
         this(key, 0, 1, null, null, null, null);
@@ -115,12 +118,12 @@ public class MerkleNode<K extends IByteable> {
         int compareResult = entry.compareTo(this.key);
         if (height == 0) {
             if (compareResult < 0) {
-                MerkleNode<K> newNode = new MerkleNode<>(this.key, new MerkleNode<K>(entry), this);
+                MerkleNode<K> newNode = new MerkleNode<>(this.key, createNode(entry), this);
                 return new AddResult<K>(newNode, false);
             } else if (compareResult == 0) {
-                return new AddResult<K>(new MerkleNode<>(entry), true);
+                return new AddResult<K>(createNode(entry), true);
             } else {
-                MerkleNode<K> newNode = new MerkleNode<>(entry, this, new MerkleNode<>(entry));
+                MerkleNode<K> newNode = new MerkleNode<>(entry, this, createNode(entry));
                 return new AddResult<K>(newNode, false);
             }
         } else {
@@ -225,7 +228,7 @@ public class MerkleNode<K extends IByteable> {
         try (ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream()) {
             int hashCount = this.writeHashBytes(byteOutStream);
             //LOG.debug("Done hashWithCount at height: {} with hashcount={}", this.height, hashCount);
-            this.hash = RipeMD160.hash(byteOutStream.toByteArray());
+            this.hash = hashFunction.hashBytes(byteOutStream.toByteArray());
             return new HashWithCount(this.hash, hashCount + 1);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -310,6 +313,10 @@ public class MerkleNode<K extends IByteable> {
             }
         }
         return false;
+    }
+    
+    protected MerkleNode<K> createNode(K entry) {
+        return new MerkleNode<K>(entry);
     }
 
 }

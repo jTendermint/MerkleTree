@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>com.github.jtendermint</groupId>
 			<artifactId>crypto</artifactId>
-			<version>-SNAPSHOT</version>
+			<version>f6a793c8d4</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>

@@ -57,7 +57,7 @@ public class MerkleTree<K extends IByteable> implements IMerkleTree<K> {
     @Override
     public boolean add(K entry) {
         if (rootNode == null) {
-            rootNode = new MerkleNode<K>(entry);
+            rootNode = createNode(entry);
             return false;
         } else {
             AddResult<K> result = rootNode.add(entry);
@@ -67,7 +67,7 @@ public class MerkleTree<K extends IByteable> implements IMerkleTree<K> {
     }
 
     @Override
-    public RemoveResult remove(K key) {
+    public RemoveResult<K> remove(K key) {
         if (rootNode == null) {
             return null;
         }
@@ -109,6 +109,10 @@ public class MerkleTree<K extends IByteable> implements IMerkleTree<K> {
             return rootNode.iterateNodes(function);
         }
         return false;
+    }
+    
+    protected MerkleNode<K> createNode(K entry) {
+       return new MerkleNode<K>(entry);
     }
 
 }
