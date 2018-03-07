@@ -2,6 +2,8 @@
 A Java implemetation of an AVL tree. 
 Can and should be used with jTMSP for storing transactions.
 
+[![CircleCI](https://circleci.com/gh/jTendermint/MerkleTree.svg?style=shield)](https://circleci.com/gh/jTendermint/MerkleTree)
+
 
 ## How to use
 ### Variant A
