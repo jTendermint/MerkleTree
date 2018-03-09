@@ -24,6 +24,7 @@
 package com.github.jtmsp.merkletree.byteable;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Objects;
 
 /**
  * A Byteable that holds a String
@@ -61,6 +62,23 @@ public class ByteableString implements IByteable {
     @Override
     public String toString() {
         return string;
+    }
+    
+    @Override
+    public int hashCode() {
+        if (string == null)
+            return 0;
+        else
+            return string.hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object arg0) {
+        if (arg0 instanceof ByteableString) {
+            ByteableString other = (ByteableString) arg0;
+            return Objects.equals(this.string, other.string);
+        }
+        return false;
     }
 
 }

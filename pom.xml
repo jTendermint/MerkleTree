@@ -4,7 +4,7 @@
 
 
 	<groupId>com.github.jtmsp</groupId>
-	<artifactId>MerkleTree</artifactId>
+	<artifactId>merkletree</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	
 	<repositories>

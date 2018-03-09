@@ -73,5 +73,10 @@ public class ByteableLong implements IByteable {
     public String toString() {
         return "" + value;
     }
+    
+    @Override
+    public int hashCode() {
+        return Long.hashCode(value);
+    }
 
 }
