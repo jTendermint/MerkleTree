@@ -24,6 +24,7 @@
 package com.github.jtendermint.merkletree.byteable.types;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.Objects;
 
 /**
@@ -49,7 +50,7 @@ public class ByteableString implements IByteable {
 
     @Override
     public byte[] toByteArray() {
-        return string.getBytes();
+        return string.getBytes(Charset.forName("UTF-8"));
     }
 
     @Override

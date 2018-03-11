@@ -194,7 +194,6 @@ public class Node<K extends Comparable<K>> {
 
         newNode.rightChildHash = rightCopy.leftChildHash;
         newNode.rightChildNode = rightCopy.leftChildNode;
-        rightCopy.leftChildNode = null;
         rightCopy.leftChildNode = newNode;
 
         newNode.updateHeightAndSize();
@@ -317,7 +316,7 @@ public class Node<K extends Comparable<K>> {
         if (rightChildNode != null)
             rightChildHash = rightChildNode.save();
 
-        return hash;
+        return Arrays.copyOf(hash, hash.length);
     }
 
 }

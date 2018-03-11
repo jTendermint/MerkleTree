@@ -39,7 +39,7 @@ public class ByteableLong implements IByteable {
 
     @Override
     public byte[] toByteArray() {
-        return bytes;
+        return bytes != null ? Arrays.copyOf(bytes, bytes.length) : null;
     }
 
     private byte[] calcByteArray(long value) {

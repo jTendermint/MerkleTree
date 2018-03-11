@@ -23,6 +23,8 @@
  */
 package com.github.jtendermint.merkletree.iavl;
 
+import java.util.Arrays;
+
 public class RmResult<K extends Comparable<K>> {
 
     private final Node<K> node;
@@ -31,7 +33,7 @@ public class RmResult<K extends Comparable<K>> {
     private final boolean removed;
 
     public RmResult(byte[] hash, Node<K> node, K value, boolean removed) {
-        this.hash = hash;
+        this.hash = Arrays.copyOf(hash, hash.length);
         this.node = node;
         this.value = value;
         this.removed = removed;
@@ -42,7 +44,7 @@ public class RmResult<K extends Comparable<K>> {
     }
 
     public byte[] getHash() {
-        return hash;
+        return hash != null ? Arrays.copyOf(hash, hash.length) : null;
     }
 
     public K getValue() {

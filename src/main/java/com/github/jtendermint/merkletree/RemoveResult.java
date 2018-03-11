@@ -25,6 +25,8 @@ package com.github.jtendermint.merkletree;
 
 import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
+import java.util.Arrays;
+
 /**
  * 
  * @author wolfposd
@@ -36,7 +38,7 @@ public class RemoveResult<K extends IByteable> {
     private boolean removed;
 
     public RemoveResult(byte[] hash, MerkleNode<K> node, K byteable, boolean removed) {
-        this.hash = hash;
+        this.hash = Arrays.copyOf(hash, hash.length);
         this.node = node;
         this.byteable = byteable;
         this.removed = removed;
@@ -52,7 +54,7 @@ public class RemoveResult<K extends IByteable> {
     }
 
     public byte[] getHash() {
-        return hash;
+        return hash != null ? Arrays.copyOf(hash, hash.length) : null;
     }
 
     public boolean wasRemoved() {
