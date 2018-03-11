@@ -44,7 +44,7 @@ public class ByteableString implements IByteable {
         try {
             string = new String(bytes, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            throw new RuntimeException("UTF-8 conversion failed.", e);
         }
     }
 
@@ -55,8 +55,9 @@ public class ByteableString implements IByteable {
 
     @Override
     public int compareTo(IByteable other) {
-        if (other instanceof ByteableString)
+        if (other instanceof ByteableString) {
             return string.compareTo(((ByteableString) other).string);
+        }
         return -1;
     }
     
@@ -67,10 +68,11 @@ public class ByteableString implements IByteable {
     
     @Override
     public int hashCode() {
-        if (string == null)
+        if (string == null) {
             return 0;
-        else
+        } else {
             return string.hashCode();
+        }
     }
     
     @Override

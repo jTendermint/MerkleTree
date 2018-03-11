@@ -25,6 +25,8 @@ package com.github.jtendermint.merkletree;
 
 import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
+import java.util.Arrays;
+
 public class MerkleTree<K extends IByteable> implements IMerkleTree<K> {
 
     private MerkleNode<K> rootNode;
@@ -81,14 +83,20 @@ public class MerkleTree<K extends IByteable> implements IMerkleTree<K> {
     @Override
     public HashWithCount getHashWithCount() {
         HashWithCount result = new HashWithCount(null, 0);
-        if (rootNode != null)
+        if (rootNode != null) {
             result = rootNode.getHashWithCount();
+        }
         return result;
     }
 
     @Override
     public byte[] getRootHash() {
-        return rootNode == null ? null : rootNode.getHashWithCount().hash;
+        if (rootNode == null) {
+            return null;
+        } else {
+            byte[] rootHash = rootNode.getHashWithCount().hash;
+            return rootHash != null ? Arrays.copyOf(rootHash, rootHash.length) : null;
+        }
     }
 
     @Override
@@ -98,8 +106,9 @@ public class MerkleTree<K extends IByteable> implements IMerkleTree<K> {
 
     @Override
     public String toPrettyString() {
-        if (rootNode == null)
+        if (rootNode == null) {
             return "()";
+        }
         return rootNode.toPrettyString();
     }
 

@@ -32,9 +32,9 @@ public interface IterateFunct<K extends Comparable<K>> {
      * @param node
      * @return <code>true</code> to stop iterating, <code>false</code> continues
      */
-    public Loop currentNode(Node<K> node);
+    Loop currentNode(Node<K> node);
 
-    public enum Loop {
+    enum Loop {
         STOP, CONTINUE;
     }
 

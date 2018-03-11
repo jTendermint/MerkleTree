@@ -25,8 +25,8 @@ package com.github.jtendermint.merkletree.iavl;
 
 public interface Hashing<K> {
 
-    public byte[] hashBytes(K k);
+    byte[] hashBytes(K k);
 
-    public byte[] hashBytes(byte[] byteArray);
+    byte[] hashBytes(byte[] byteArray);
 
 }

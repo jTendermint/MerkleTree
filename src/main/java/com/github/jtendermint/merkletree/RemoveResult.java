@@ -34,8 +34,8 @@ import java.util.Arrays;
 public class RemoveResult<K extends IByteable> {
     private MerkleNode<K> node;
     private byte[] hash;
-    private IByteable byteable;
-    private boolean removed;
+    private final IByteable byteable;
+    private final boolean removed;
 
     public RemoveResult(byte[] hash, MerkleNode<K> node, K byteable, boolean removed) {
         this.hash = Arrays.copyOf(hash, hash.length);

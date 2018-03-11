@@ -46,9 +46,6 @@ public class Node<K extends Comparable<K>> {
 
     private Hashing<K> hashFunction;
 
-    public Node() {
-    }
-
     public Node<K> init(K value) {
         return init(value, 0, 1, null, null, null, null);
     }
@@ -72,7 +69,7 @@ public class Node<K extends Comparable<K>> {
         return value;
     }
 
-    public Node<K> hashFunction(Hashing<K> hash) {
+    public Node<K> setHashFunction(Hashing<K> hash) {
         this.hashFunction = hash;
         return this;
     }
@@ -90,11 +87,11 @@ public class Node<K extends Comparable<K>> {
     }
 
     public K get(K entry) {
-        if (entry != null && entry.equals(value))
+        if (entry != null && entry.equals(value)) {
             return value;
-        else if (this.height == 0)
+        } else if (this.height == 0) {
             return null;
-        else {
+        } else {
             if (entry.compareTo(value) < 0) {
                 return this.leftChildNode.get(entry);
             } else {
@@ -124,13 +121,13 @@ public class Node<K extends Comparable<K>> {
         if (height == 0) {
             if (compareResult < 0) {
                 Node<K> newNode = new Node<>();
-                newNode.init(this.value, this.newNode().init(value).hashFunction(hashFunction), this).hashFunction(hashFunction);
+                newNode.init(this.value, this.newNode().init(value).setHashFunction(hashFunction), this).setHashFunction(hashFunction);
                 return new AddResult<K>(newNode, false);
             } else if (compareResult == 0) {
-                return new AddResult<K>(this.newNode().init(value).hashFunction(hashFunction), true);
+                return new AddResult<K>(this.newNode().init(value).setHashFunction(hashFunction), true);
             } else {
                 Node<K> newNode = new Node<>();
-                newNode.init(value, this, this.newNode().init(value).hashFunction(hashFunction)).hashFunction(hashFunction);
+                newNode.init(value, this, this.newNode().init(value).setHashFunction(hashFunction)).setHashFunction(hashFunction);
                 return new AddResult<K>(newNode, false);
             }
         } else {
@@ -229,14 +226,14 @@ public class Node<K extends Comparable<K>> {
             throw new RuntimeException("Cannot copy Value-Nodes");
         } else {
             return newNode().init(value, this.height, this.size, this.leftChildHash, this.leftChildNode, this.rightChildHash,
-                    this.rightChildNode).hashFunction(hashFunction);
+                    this.rightChildNode).setHashFunction(hashFunction);
         }
     }
 
     public String toPrettyString() {
-        if (this.height == 0)
-            return "" + value;
-        else {
+        if (this.height == 0) {
+            return String.valueOf(value);
+        } else {
             return "(" + this.leftChildNode.toPrettyString() + " " + this.rightChildNode.toPrettyString() + ")";
         }
     }
@@ -308,13 +305,16 @@ public class Node<K extends Comparable<K>> {
     }
 
     public byte[] save() {
-        if (hash == null)
+        if (hash == null) {
             hash = getHashWithCount().hash;
+        }
 
-        if (leftChildNode != null)
+        if (leftChildNode != null) {
             leftChildHash = leftChildNode.save();
-        if (rightChildNode != null)
+        }
+        if (rightChildNode != null) {
             rightChildHash = rightChildNode.save();
+        }
 
         return Arrays.copyOf(hash, hash.length);
     }

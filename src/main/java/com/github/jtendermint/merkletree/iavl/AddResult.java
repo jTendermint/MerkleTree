@@ -25,15 +25,15 @@ package com.github.jtendermint.merkletree.iavl;
 
 public class AddResult<K extends Comparable<K>> {
     private final Node<K> node;
-    private final boolean wasUpdated;
+    private final boolean updated;
 
-    public AddResult(Node<K> node, boolean wasUpdate) {
+    public AddResult(Node<K> node, boolean updated) {
         this.node = node;
-        this.wasUpdated = wasUpdate;
+        this.updated = updated;
     }
 
     public boolean wasUpdated() {
-        return wasUpdated;
+        return updated;
     }
 
     public Node<K> getNode() {

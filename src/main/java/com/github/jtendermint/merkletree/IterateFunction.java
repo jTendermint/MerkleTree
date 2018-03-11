@@ -40,5 +40,5 @@ public interface IterateFunction<K extends IByteable> {
      * @param node the current Node
      * @return <code>true</code> stops iteration, <code>false</code> continues iteration
      */
-    public boolean currentNode(MerkleNode<K> node);
+    boolean currentNode(MerkleNode<K> node);
 }

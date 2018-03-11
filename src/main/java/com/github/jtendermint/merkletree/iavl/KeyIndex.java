@@ -25,9 +25,9 @@ package com.github.jtendermint.merkletree.iavl;
 
 public class KeyIndex<K> {
 
-    private K value;
-    private boolean exists;
-    private int index;
+    private final K value;
+    private final boolean exists;
+    private final int index;
 
     public KeyIndex(K value, boolean exists, int index) {
         this.value = value;

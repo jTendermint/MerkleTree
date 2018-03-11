@@ -56,8 +56,9 @@ public class ByteableLong implements IByteable {
 
     @Override
     public int compareTo(IByteable other) {
-        if (other instanceof ByteableLong)
+        if (other instanceof ByteableLong) {
             return Long.compare(this.value, ((ByteableLong) other).value);
+        }
         return -1;
     }
 
@@ -71,7 +72,7 @@ public class ByteableLong implements IByteable {
 
     @Override
     public String toString() {
-        return "" + value;
+        return String.valueOf(value);
     }
     
     @Override

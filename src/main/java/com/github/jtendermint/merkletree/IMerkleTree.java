@@ -30,71 +30,71 @@ public interface IMerkleTree<K extends IByteable> {
     /**
      * Returns the tree size (elements in tree)
      */
-    public int size();
+    int size();
 
     /**
      * Returns the tree-height
      */
-    public int getHeight();
+    int getHeight();
 
     /**
      * Check if an entry is already present
      * @param entry
      */
-    public boolean contains(K entry);
+    boolean contains(K entry);
 
     /**
      * Return an entry from the tree, uses {@link #equals(Object)} for equality-checks
      * @param entry
      * @return
      */
-    public K get(K entry);
+    K get(K entry);
 
     /**
      * Returns the Entry at a specific index
      * @param index
      * @return
      */
-    public KeyIndex<K> get(int index);
+    KeyIndex<K> get(int index);
 
     /**
      * Add a new entry
      * @param entry
      * @return
      */
-    public boolean add(K entry);
+    boolean add(K entry);
 
     /**
      * Remove an entry
      * @param entry
      * @return
      */
-    public RemoveResult<K> remove(K entry);
+    RemoveResult<K> remove(K entry);
 
     /**
      * Returns the Root-Hash and the amount of hashes
      */
-    public HashWithCount getHashWithCount();
+    HashWithCount getHashWithCount();
 
     /**
      * Returns the root-hash
      */
-    public byte[] getRootHash();
+    byte[] getRootHash();
 
     /**
      * Returns the Root-Node
      */
-    public MerkleNode<K> getRoot();
+    MerkleNode<K> getRoot();
 
     /**
      * Pretty prints this tree for debugging: ((1 2) (3 4))
      */
-    public String toPrettyString();
+    String toPrettyString();
 
     /**
      * Iterate over every node. check Leafnodes with node.isLeafNode()
      * @param function
      * @return <code>false</code> when done
      */
-    public boolean iterateNodes(IterateFunction<K> function);
+    boolean iterateNodes(IterateFunction<K> function);
 }

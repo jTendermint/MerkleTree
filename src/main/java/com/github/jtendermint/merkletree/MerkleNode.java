@@ -101,11 +101,11 @@ public class MerkleNode<K extends IByteable> {
     }
 
     public K get(K entry) {
-        if (entry != null && entry.equals(key))
+        if (entry != null && entry.equals(key)) {
             return key;
-        else if (this.height == 0)
+        } else if (this.height == 0) {
             return null;
-        else {
+        } else {
             if (entry.compareTo(key) < 0) {
                 return this.leftChildNode.get(entry);
             } else {
@@ -264,13 +264,17 @@ public class MerkleNode<K extends IByteable> {
 
     public byte[] save() {
 
-        if (hash == null)
+        if (hash == null) {
             hash = getHashWithCount().hash;
+        }
 
-        if (leftChildNode != null)
+        if (leftChildNode != null) {
             leftChildHash = leftChildNode.save();
-        if (rightChildNode != null)
+        }
+
+        if (rightChildNode != null) {
             rightChildHash = rightChildNode.save();
+        }
 
         return Arrays.copyOf(hash, hash.length);
     }
@@ -285,9 +289,9 @@ public class MerkleNode<K extends IByteable> {
     }
 
     public String toPrettyString() {
-        if (this.height == 0)
-            return "" + new BigInteger(key.toByteArray()).intValue();
-        else {
+        if (this.height == 0) {
+            return String.valueOf(new BigInteger(key.toByteArray()).intValue());
+        } else {
             return "(" + this.leftChildNode.toPrettyString() + " " + this.rightChildNode.toPrettyString() + ")";
         }
     }

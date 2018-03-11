@@ -26,12 +26,14 @@ package com.github.jtendermint.merkletree.iavl;
 import com.github.jtendermint.merkletree.iavl.IterateFunct.Loop;
 import com.github.jtendermint.merkletree.HashWithCount;
 
+import java.util.Arrays;
+
 /**
  * Self balancing binary search tree
  */
 public class AVLTree<K extends Comparable<K>> {
 
-    private Hashing<K> hashalgorithm;
+    private final Hashing<K> hashalgorithm;
 
     private Node<K> rootNode;
 
@@ -92,7 +94,7 @@ public class AVLTree<K extends Comparable<K>> {
      */
     public boolean add(K entry) {
         if (rootNode == null) {
-            rootNode = new Node<K>().init(entry).hashFunction(hashalgorithm);
+            rootNode = new Node<K>().init(entry).setHashFunction(hashalgorithm);
             return false;
         } else {
             AddResult<K> result = rootNode.add(entry);
@@ -120,17 +122,23 @@ public class AVLTree<K extends Comparable<K>> {
      * Returns the Root-Hash and the amount of hashes
      */
     public HashWithCount getHashWithCount() {
-        if (rootNode != null)
+        if (rootNode != null) {
             return rootNode.getHashWithCount();
-        else
+        } else {
             return new HashWithCount(null, 0);
+        }
     }
 
     /**
      * Returns the root-hash
      */
     public byte[] getRootHash() {
-        return rootNode == null ? null : rootNode.getHashWithCount().hash;
+        if (rootNode == null) {
+            return null;
+        } else {
+            byte[] rootHash = rootNode.getHashWithCount().hash;
+            return rootHash != null ? Arrays.copyOf(rootHash, rootHash.length) : null;
+        }
     }
 
     /**
@@ -144,8 +152,9 @@ public class AVLTree<K extends Comparable<K>> {
      * Pretty prints this tree for debugging: ((1 2) (3 4))
      */
     public String toPrettyString() {
-        if (rootNode == null)
+        if (rootNode == null) {
             return "()";
+        }
         return rootNode.toPrettyString();
     }
 

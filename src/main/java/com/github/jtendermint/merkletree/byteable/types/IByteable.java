@@ -28,13 +28,13 @@ public interface IByteable {
     /**
      * @return byte-array representation of this type
      */
-    public byte[] toByteArray();
+    byte[] toByteArray();
 
     /**
      * Comparator-function for byteable, see {@link Comparable}
      * @param other
      * @return &lt;0 if smaller, 0 if equal, &gt;0 if greater
      */
-    public int compareTo(IByteable other);
+    int compareTo(IByteable other);
 
 }

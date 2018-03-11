@@ -25,9 +25,9 @@ package com.github.jtendermint.merkletree;
 
 public class KeyIndex<K> {
 
-    private K entry;
-    private boolean exists;
-    private int index;
+    private final K entry;
+    private final boolean exists;
+    private final int index;
 
     public KeyIndex(K entry, boolean exists, int index) {
         this.entry = entry;

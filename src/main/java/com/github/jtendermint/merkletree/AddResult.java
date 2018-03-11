@@ -27,15 +27,15 @@ import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
 public class AddResult<K extends IByteable> {
     private final MerkleNode<K> node;
-    private final boolean wasUpdated;
+    private final boolean updated;
 
-    public AddResult(MerkleNode<K> node, boolean wasUpdate) {
+    public AddResult(MerkleNode<K> node, boolean updated) {
         this.node = node;
-        this.wasUpdated = wasUpdate;
+        this.updated = updated;
     }
 
     public boolean wasUpdated() {
-        return wasUpdated;
+        return updated;
     }
 
     public MerkleNode<K> getNode() {
