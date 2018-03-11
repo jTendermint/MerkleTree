@@ -21,47 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree.byteable;
+package com.github.jtendermint.merkletree.byteable.types;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import com.github.jtendermint.merkletree.byteable.types.ByteableLong;
 import org.junit.Test;
 
 import com.github.jtendermint.crypto.ByteUtil;
 
-public class ByteableStringTest {
+public class ByteableLongTest {
 
     @Test
-    public void testByteAbleString() {
+    public void testByteAbleLong() {
 
-        ByteableString string1 = new ByteableString("test");
+        ByteableLong long1 = new ByteableLong(0l);
 
-        assertEquals(string1.string, "test");
+        assertEquals(long1.value, 0l);
 
-        assertEquals(0, string1.compareTo(new ByteableString("test")));
-        assertEquals('t' - 'x', string1.compareTo(new ByteableString("x")));
-        assertEquals('t' - 'a', string1.compareTo(new ByteableString("a")));
-        assertEquals(new ByteableString("test"), string1);
-        assertEquals(ByteUtil.toString00(new byte[] { 0x74, 0x65, 0x73, 0x74 }), ByteUtil.toString00(string1.toByteArray()));
-        assertEquals(-1, string1.compareTo(null));
+        assertEquals(0, long1.compareTo(new ByteableLong(0l)));
+        assertEquals(-1, long1.compareTo(new ByteableLong(1l)));
+        assertEquals(1, long1.compareTo(new ByteableLong(-1l)));
+
+        assertEquals(new ByteableLong(0l), long1);
+
+        assertEquals(ByteUtil.toString00(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }), ByteUtil.toString00(long1.toByteArray()));
+
+        assertEquals(-1, long1.compareTo(null));
     }
 
     @Test
     public void testEqualsHashCodeToString() {
-        ByteableString string1 = new ByteableString("test");
+        ByteableLong long1 = new ByteableLong(1l);
 
-        assertFalse(string1.equals(null));
-        assertFalse(string1.equals((ByteableString) null));
-        assertFalse(string1.equals(new String()));
-        assertFalse(string1.equals(new ByteableString("not test")));
+        assertFalse(long1.equals(null));
+        assertFalse(long1.equals((ByteableLong) null));
+        assertFalse(long1.equals(new String()));
+        assertFalse(long1.equals(new ByteableLong(2l)));
 
-        assertEquals("test", string1.toString());
+        assertEquals("1", long1.toString());
         assertEquals(new ByteableLong(0l), new ByteableLong(0l));
 
-        assertEquals("test".hashCode(), string1.hashCode());
-
-        assertEquals(string1, new ByteableString(new byte[] { 0x74, 0x65, 0x73, 0x74 }));
+        assertEquals(1, long1.hashCode());
 
     }
 

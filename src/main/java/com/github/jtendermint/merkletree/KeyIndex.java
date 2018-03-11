@@ -21,46 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree;
 
-import com.github.jtmsp.merkletree.byteable.IByteable;
+public class KeyIndex<K> {
 
-/**
- * 
- * @author wolfposd
- */
-public class RemoveResult<K extends IByteable> {
-    private MerkleNode<K> node;
-    private byte[] hash;
-    private IByteable byteable;
-    private boolean removed;
+    private K entry;
+    private boolean exists;
+    private int index;
 
-    public RemoveResult(byte[] hash, MerkleNode<K> node, K byteable, boolean removed) {
-        this.hash = hash;
-        this.node = node;
-        this.byteable = byteable;
-        this.removed = removed;
+    public KeyIndex(K entry, boolean exists, int index) {
+        this.entry = entry;
+        this.exists = exists;
+        this.index = index;
     }
 
-    public RemoveResult(K byteable, boolean removed) {
-        this.byteable = byteable == null ? null : byteable;
-        this.removed = removed;
+    public K getEntry() {
+        return entry;
     }
 
-    public MerkleNode<K> getNode() {
-        return node;
+    public boolean doesExist() {
+        return exists;
     }
 
-    public byte[] getHash() {
-        return hash;
-    }
-
-    public boolean wasRemoved() {
-        return removed;
-    }
-
-    public IByteable getByteable() {
-        return byteable;
+    public int getIndex() {
+        return index;
     }
 
 }

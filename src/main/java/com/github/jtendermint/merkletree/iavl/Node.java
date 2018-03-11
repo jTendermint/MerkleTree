@@ -29,7 +29,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import com.github.jtendermint.merkletree.iavl.IterateFunct.Loop;
-import com.github.jtmsp.merkletree.HashWithCount;
+import com.github.jtendermint.merkletree.HashWithCount;
 
 public class Node<K extends Comparable<K>> {
 

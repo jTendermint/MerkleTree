@@ -21,20 +21,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree.byteable;
+package com.github.jtendermint.merkletree;
 
-public interface IByteable {
+import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
-    /**
-     * @return byte-array representation of this type
-     */
-    public byte[] toByteArray();
+/**
+ * 
+ * @author wolfposd
+ */
+public class RemoveResult<K extends IByteable> {
+    private MerkleNode<K> node;
+    private byte[] hash;
+    private IByteable byteable;
+    private boolean removed;
 
-    /**
-     * Comparator-function for byteable, see {@link Comparable}
-     * @param other
-     * @return &lt;0 if smaller, 0 if equal, &gt;0 if greater
-     */
-    public int compareTo(IByteable other);
+    public RemoveResult(byte[] hash, MerkleNode<K> node, K byteable, boolean removed) {
+        this.hash = hash;
+        this.node = node;
+        this.byteable = byteable;
+        this.removed = removed;
+    }
+
+    public RemoveResult(K byteable, boolean removed) {
+        this.byteable = byteable == null ? null : byteable;
+        this.removed = removed;
+    }
+
+    public MerkleNode<K> getNode() {
+        return node;
+    }
+
+    public byte[] getHash() {
+        return hash;
+    }
+
+    public boolean wasRemoved() {
+        return removed;
+    }
+
+    public IByteable getByteable() {
+        return byteable;
+    }
 
 }

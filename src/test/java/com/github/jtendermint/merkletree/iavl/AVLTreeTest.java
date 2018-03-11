@@ -37,7 +37,7 @@ import org.junit.Test;
 import com.github.jtendermint.crypto.ByteUtil;
 import com.github.jtendermint.crypto.RipeMD160;
 import com.github.jtendermint.merkletree.iavl.IterateFunct.Loop;
-import com.github.jtmsp.merkletree.HashWithCount;
+import com.github.jtendermint.merkletree.HashWithCount;
 
 public class AVLTreeTest {
 

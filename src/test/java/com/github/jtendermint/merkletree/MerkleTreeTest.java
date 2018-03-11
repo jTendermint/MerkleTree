@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -31,12 +31,17 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
+import com.github.jtendermint.merkletree.HashWithCount;
+import com.github.jtendermint.merkletree.IMerkleTree;
+import com.github.jtendermint.merkletree.IterateFunction;
+import com.github.jtendermint.merkletree.MerkleNode;
+import com.github.jtendermint.merkletree.MerkleTree;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.github.jtendermint.crypto.ByteUtil;
-import com.github.jtmsp.merkletree.byteable.ByteableLong;
-import com.github.jtmsp.merkletree.byteable.ByteableString;
+import com.github.jtendermint.merkletree.byteable.types.ByteableLong;
+import com.github.jtendermint.merkletree.byteable.types.ByteableString;
 
 public class MerkleTreeTest {
 

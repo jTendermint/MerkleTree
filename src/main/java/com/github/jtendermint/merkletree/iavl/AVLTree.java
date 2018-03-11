@@ -24,7 +24,7 @@
 package com.github.jtendermint.merkletree.iavl;
 
 import com.github.jtendermint.merkletree.iavl.IterateFunct.Loop;
-import com.github.jtmsp.merkletree.HashWithCount;
+import com.github.jtendermint.merkletree.HashWithCount;
 
 /**
  * Self balancing binary search tree

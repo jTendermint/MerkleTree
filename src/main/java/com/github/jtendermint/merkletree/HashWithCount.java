@@ -21,30 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree;
 
-public class KeyIndex<K> {
+import java.util.Arrays;
 
-    private K entry;
-    private boolean exists;
-    private int index;
+public class HashWithCount {
 
-    public KeyIndex(K entry, boolean exists, int index) {
-        this.entry = entry;
-        this.exists = exists;
-        this.index = index;
+    public final int count;
+    public final byte[] hash;
+
+    public HashWithCount(byte[] hash, int count) {
+        this.hash = hash == null ? null : Arrays.copyOf(hash, hash.length);
+        this.count = count;
     }
-
-    public K getEntry() {
-        return entry;
-    }
-
-    public boolean doesExist() {
-        return exists;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
 }

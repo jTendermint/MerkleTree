@@ -1,16 +1,18 @@
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree;
 
 import static org.junit.Assert.assertNotEquals;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.github.jtendermint.merkletree.MerkleNode;
+import com.github.jtendermint.merkletree.MerkleTree;
 import org.junit.Test;
 
 import com.github.jtendermint.crypto.ByteUtil;
 import com.github.jtendermint.crypto.HashFunction;
-import com.github.jtmsp.merkletree.byteable.ByteableLong;
-import com.github.jtmsp.merkletree.byteable.IByteable;
+import com.github.jtendermint.merkletree.byteable.types.ByteableLong;
+import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
 public class MerkleTreeOtherHashTest {
 

@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  * 
- * Copyright (c) 2016 - 2018 
+ * Copyright (c) 2016 - 2018
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree;
 
-import com.github.jtmsp.merkletree.byteable.IByteable;
+import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
-/**
- * Iteration Function for MerkleTrees
- * 
- * @author wolfposd
- */
-@FunctionalInterface
-public interface IterateFunction<K extends IByteable> {
+public class AddResult<K extends IByteable> {
+    private final MerkleNode<K> node;
+    private final boolean wasUpdated;
 
-    /**
-     * Iterate over nodes of this Tree, passes both types of nodes.<br>
-     * Check with node.isLeafNode() if its an actual data node 
-     * 
-     * @param node the current Node
-     * @return <code>true</code> stops iteration, <code>false</code> continues iteration
-     */
-    public boolean currentNode(MerkleNode<K> node);
+    public AddResult(MerkleNode<K> node, boolean wasUpdate) {
+        this.node = node;
+        this.wasUpdated = wasUpdate;
+    }
+
+    public boolean wasUpdated() {
+        return wasUpdated;
+    }
+
+    public MerkleNode<K> getNode() {
+        return node;
+    }
 }

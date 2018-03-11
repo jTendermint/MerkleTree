@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,7 +32,7 @@ import java.util.Objects;
 import com.github.jtendermint.crypto.ByteUtil;
 import com.github.jtendermint.crypto.HashFunction;
 import com.github.jtendermint.crypto.RipeMD160;
-import com.github.jtmsp.merkletree.byteable.IByteable;
+import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
 public class MerkleNode<K extends IByteable> {
 

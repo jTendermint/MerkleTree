@@ -21,17 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree;
 
-import java.util.Arrays;
+import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
-public class HashWithCount {
+/**
+ * Iteration Function for MerkleTrees
+ * 
+ * @author wolfposd
+ */
+@FunctionalInterface
+public interface IterateFunction<K extends IByteable> {
 
-    public final int count;
-    public final byte[] hash;
-
-    public HashWithCount(byte[] hash, int count) {
-        this.hash = hash == null ? null : Arrays.copyOf(hash, hash.length);
-        this.count = count;
-    }
+    /**
+     * Iterate over nodes of this Tree, passes both types of nodes.<br>
+     * Check with node.isLeafNode() if its an actual data node 
+     * 
+     * @param node the current Node
+     * @return <code>true</code> stops iteration, <code>false</code> continues iteration
+     */
+    public boolean currentNode(MerkleNode<K> node);
 }

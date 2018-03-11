@@ -1,7 +1,8 @@
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree;
 
 import static org.junit.Assert.assertEquals;
 
+import com.github.jtendermint.merkletree.KeyIndex;
 import org.junit.Test;
 
 public class KeyIndexTest {

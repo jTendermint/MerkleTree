@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  * 
- * Copyright (c) 2016 - 2018
+ * Copyright (c) 2016 - 2018 
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,24 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.jtmsp.merkletree;
+package com.github.jtendermint.merkletree.byteable.types;
 
-import com.github.jtmsp.merkletree.byteable.IByteable;
+public interface IByteable {
 
-public class AddResult<K extends IByteable> {
-    private final MerkleNode<K> node;
-    private final boolean wasUpdated;
+    /**
+     * @return byte-array representation of this type
+     */
+    public byte[] toByteArray();
 
-    public AddResult(MerkleNode<K> node, boolean wasUpdate) {
-        this.node = node;
-        this.wasUpdated = wasUpdate;
-    }
+    /**
+     * Comparator-function for byteable, see {@link Comparable}
+     * @param other
+     * @return &lt;0 if smaller, 0 if equal, &gt;0 if greater
+     */
+    public int compareTo(IByteable other);
 
-    public boolean wasUpdated() {
-        return wasUpdated;
-    }
-
-    public MerkleNode<K> getNode() {
-        return node;
-    }
 }
