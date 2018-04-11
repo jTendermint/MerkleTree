@@ -48,7 +48,6 @@ public class ByteableLongTest {
 
         assertEquals(ByteUtil.toString00(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }), ByteUtil.toString00(long1.toByteArray()));
 
-        assertEquals(-1, long1.compareTo(null));
     }
 
     @Test

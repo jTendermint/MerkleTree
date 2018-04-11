@@ -46,7 +46,6 @@ public class ByteableStringTest {
         assertEquals('t' - 'a', string1.compareTo(new ByteableString("a")));
         assertEquals(new ByteableString("test"), string1);
         assertEquals(ByteUtil.toString00(new byte[] { 0x74, 0x65, 0x73, 0x74 }), ByteUtil.toString00(string1.toByteArray()));
-        assertEquals(-1, string1.compareTo(null));
     }
 
     @Test

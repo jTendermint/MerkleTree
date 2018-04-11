@@ -1,18 +1,18 @@
 /*
  * The MIT License (MIT)
  * 
- * Copyright (c) 2016 - 2018 
- * 
+ * Copyright (c) 2016
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,7 +23,7 @@
  */
 package com.github.jtendermint.merkletree.byteable.types;
 
-public interface IByteable {
+public interface IByteable<E extends IByteable<E>> {
 
     /**
      * @return byte-array representation of this type
@@ -32,9 +32,9 @@ public interface IByteable {
 
     /**
      * Comparator-function for byteable, see {@link Comparable}
-     * @param other
+     * @param other the non-null instance to compare to
      * @return &lt;0 if smaller, 0 if equal, &gt;0 if greater
      */
-    int compareTo(IByteable other);
+    int compareTo(E other);
 
 }
