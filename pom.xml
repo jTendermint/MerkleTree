@@ -116,6 +116,7 @@
                             </execution>
                         </executions>
                         <configuration>
+                            <keyname>DB9DB010EA6D36411C11AEB43BCEAE306C37A99D</keyname>
                             <useAgent>false</useAgent>
                         </configuration>
                     </plugin>
