@@ -28,73 +28,84 @@ import com.github.jtendermint.merkletree.byteable.types.IByteable;
 public interface IMerkleTree<K extends IByteable> {
 
     /**
-     * Returns the tree size (elements in tree)
+     * @return the tree size (elements in tree)
      */
     int size();
 
     /**
-     * Returns the tree-height
+     * @return the tree-height
      */
     int getHeight();
 
     /**
      * Check if an entry is already present
+     * 
      * @param entry
+     *            the Entry to search for in this tree. Should not be null
+     * @return true if the entry is in this tree
      */
     boolean contains(K entry);
 
     /**
-     * Return an entry from the tree, uses {@link #equals(Object)} for equality-checks
+     * Return an entry from the tree, uses {@link Object#equals(Object)} for equality-checks
+     * 
      * @param entry
-     * @return
+     *            a non-null entry to lookup in the tree
+     * @return the entry from the tree or null if this entry is not in the tree
      */
     K get(K entry);
 
     /**
-     * Returns the Entry at a specific index
      * @param index
-     * @return
+     *            the index of the node where the entry should be retrieved
+     * @return a KeyIndex representing the element at the requested index. Never null.
      */
     KeyIndex<K> get(int index);
 
     /**
-     * Add a new entry
+     * Add or update the entry to/in the tree. If this entry already existed, the existing node will be updated
+     * 
      * @param entry
-     * @return
+     *            the non-null entry to add
+     * @return true if the entry has been updated in the tree, false if this entry has been newly added
      */
     boolean add(K entry);
 
     /**
-     * Remove an entry
+     * Remove an entry from the tree
+     * 
      * @param entry
-     * @return
+     *            the entry to remove
+     * @return a RemoveResult representing the result of the remove operation. Never null.
      */
     RemoveResult<K> remove(K entry);
 
     /**
-     * Returns the Root-Hash and the amount of hashes
+     * @return the Root-Hash and the amount of hashes
      */
     HashWithCount getHashWithCount();
 
     /**
-     * Returns the root-hash
+     * @return the root-hash. Will be null if the root-node is or if the rootHash has never been calculated.
      */
     byte[] getRootHash();
 
     /**
-     * Returns the Root-Node
+     * @return the Root-Node. May be null.
      */
     MerkleNode<K> getRoot();
 
     /**
-     * Pretty prints this tree for debugging: ((1 2) (3 4))
+     * @return a prettify string representation of this tree for debugging: ((1 2) (3 4))
      */
     String toPrettyString();
 
     /**
      * Iterate over every node. check Leafnodes with node.isLeafNode()
+     * 
      * @param function
-     * @return <code>false</code> when done
+     *            a IterateFunction that should be executed for node
+     * @return <code>false</code> when nothing has been iterated. true when iteration ended after at least one leaf
      */
     boolean iterateNodes(IterateFunction<K> function);
 }
