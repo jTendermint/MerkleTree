@@ -23,10 +23,10 @@
  */
 package com.github.jtendermint.merkletree.iavl;
 
-import com.github.jtendermint.merkletree.iavl.IterateFunct.Loop;
-import com.github.jtendermint.merkletree.HashWithCount;
-
 import java.util.Arrays;
+
+import com.github.jtendermint.merkletree.HashWithCount;
+import com.github.jtendermint.merkletree.iavl.IterateFunct.Loop;
 
 /**
  * Self balancing binary search tree
@@ -42,14 +42,14 @@ public class AVLTree<K extends Comparable<K>> {
     }
 
     /**
-     * Returns the tree size (elements in tree)
+     * @return the tree size (elements in tree)
      */
     public int size() {
         return rootNode == null ? 0 : rootNode.getSize();
     }
 
     /**
-     * Returns the tree-height
+     * @return the tree-height
      */
     public int getHeight() {
         return rootNode == null ? 0 : rootNode.getHeight();
@@ -59,27 +59,26 @@ public class AVLTree<K extends Comparable<K>> {
      * Check if an entry is already present
      * 
      * @param entry
+     *            the non-null entry to lookup
+     * @return true if this entry exists in the tree
      */
     public boolean contains(K entry) {
         return rootNode == null ? false : rootNode.contains(entry);
     }
 
     /**
-     * Return an entry from the tree, uses {@link #equals(Object)} for
-     * equality-checks
-     * 
-     * @param entry
-     * @return
+     *
+     * @param entry the non-null entry to get
+     * @return an entry from the tree, uses {@link #equals(Object)} for equality-checks
      */
     public K get(K entry) {
         return rootNode == null ? null : rootNode.get(entry);
     }
 
     /**
-     * Returns the Entry at a specific index
-     * 
-     * @param index
-     * @return
+     *
+     * @param index the index to get
+     * @return a KeyIndex representing the lookup result
      */
     public KeyIndex<K> get(int index) {
         return rootNode == null ? null : rootNode.get(index);
@@ -88,9 +87,8 @@ public class AVLTree<K extends Comparable<K>> {
     /**
      * Add a new entry
      * 
-     * @param entry
-     * @return <code>true</code> if tree was updated, <code>false</code> if
-     *         simple add possible
+     * @param entry the non-null entry to add
+     * @return <code>true</code> if tree was updated, <code>false</code> if simple add possible
      */
     public boolean add(K entry) {
         if (rootNode == null) {
@@ -119,7 +117,7 @@ public class AVLTree<K extends Comparable<K>> {
     // }
 
     /**
-     * Returns the Root-Hash and the amount of hashes
+     * @return the Root-Hash and the amount of hashes
      */
     public HashWithCount getHashWithCount() {
         if (rootNode != null) {
@@ -130,7 +128,7 @@ public class AVLTree<K extends Comparable<K>> {
     }
 
     /**
-     * Returns the root-hash
+     * @return the root-hash. Maybe null
      */
     public byte[] getRootHash() {
         if (rootNode == null) {
@@ -142,14 +140,14 @@ public class AVLTree<K extends Comparable<K>> {
     }
 
     /**
-     * Returns the Root-Node
+     * @return the Root-Node. Maybe null
      */
     public Node<K> getRoot() {
         return rootNode;
     }
 
     /**
-     * Pretty prints this tree for debugging: ((1 2) (3 4))
+     * @return a prettified representation of this tree for debugging: ((1 2) (3 4))
      */
     public String toPrettyString() {
         if (rootNode == null) {
@@ -160,8 +158,8 @@ public class AVLTree<K extends Comparable<K>> {
 
     /**
      * Iterate over every node. check Leafnodes with node.isLeafNode()
-     * 
-     * @param function
+     *
+     * @param function the function to apply to each node while iterating
      * @return <code>Run.STOP</code> when done
      */
     public Loop iterateNodes(IterateFunct<K> function) {

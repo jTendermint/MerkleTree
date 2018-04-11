@@ -26,16 +26,17 @@ package com.github.jtendermint.merkletree.iavl;
 @FunctionalInterface
 public interface IterateFunct<K extends Comparable<K>> {
 
-    /**
-     * Function to Iterate nodes
-     * 
-     * @param node
-     * @return <code>true</code> to stop iterating, <code>false</code> continues
-     */
-    Loop currentNode(Node<K> node);
-
     enum Loop {
         STOP, CONTINUE;
     }
+
+    /**
+     * Function to Iterate nodes
+     *
+     * @param node
+     *            the non-null node to iterate over
+     * @return <code>true</code> to stop iterating, <code>false</code> continues
+     */
+    Loop currentNode(Node<K> node);
 
 }
