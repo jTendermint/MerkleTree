@@ -32,7 +32,7 @@ import java.util.Objects;
  *
  * @author wolfposd
  */
-public class ByteableString implements IByteable {
+public class ByteableString implements IByteable<ByteableString> {
 
     public String string;
 
@@ -40,7 +40,7 @@ public class ByteableString implements IByteable {
         string = s;
     }
 
-    public ByteableString(byte[] bytes) {
+    ByteableString(byte[] bytes) {
         try {
             string = new String(bytes, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -54,18 +54,15 @@ public class ByteableString implements IByteable {
     }
 
     @Override
-    public int compareTo(IByteable other) {
-        if (other instanceof ByteableString) {
-            return string.compareTo(((ByteableString) other).string);
-        }
-        return -1;
+    public int compareTo(final ByteableString other) {
+        return string.compareTo(other.string);
     }
-    
+
     @Override
     public String toString() {
         return string;
     }
-    
+
     @Override
     public int hashCode() {
         if (string == null) {
@@ -74,7 +71,7 @@ public class ByteableString implements IByteable {
             return string.hashCode();
         }
     }
-    
+
     @Override
     public boolean equals(Object arg0) {
         if (arg0 instanceof ByteableString) {

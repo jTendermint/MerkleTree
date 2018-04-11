@@ -26,9 +26,9 @@ package com.github.jtendermint.merkletree.byteable.types;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-public class ByteableLong implements IByteable {
+public class ByteableLong implements IByteable<ByteableLong> {
 
-    public final long value;
+    final long value;
 
     private final byte[] bytes;
 
@@ -55,16 +55,13 @@ public class ByteableLong implements IByteable {
     }
 
     @Override
-    public int compareTo(IByteable other) {
-        if (other instanceof ByteableLong) {
-            return Long.compare(this.value, ((ByteableLong) other).value);
-        }
-        return -1;
+    public int compareTo(ByteableLong other) {
+        return Long.compare(this.value, other.value);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj != null && obj instanceof ByteableLong) {
+        if (obj instanceof ByteableLong) {
             return value == ((ByteableLong) obj).value;
         }
         return false;
@@ -74,7 +71,7 @@ public class ByteableLong implements IByteable {
     public String toString() {
         return String.valueOf(value);
     }
-    
+
     @Override
     public int hashCode() {
         return Long.hashCode(value);
