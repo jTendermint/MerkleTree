@@ -5,7 +5,7 @@
 
     <groupId>com.github.jtendermint</groupId>
     <artifactId>merkletree</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
 
     <name>com.github.jtendermint:merkletree</name>
     <description>Java port of tendermint's merkletree</description>
