@@ -5,7 +5,7 @@
 
     <groupId>com.github.jtendermint</groupId>
     <artifactId>merkletree</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 
     <name>com.github.jtendermint:merkletree</name>
     <description>Java port of tendermint's merkletree</description>
@@ -49,14 +49,6 @@
             <email>wolfposd@github</email>
         </developer>
     </developers>
-
-
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>
@@ -140,9 +132,8 @@
         <dependency>
             <groupId>com.github.jtendermint</groupId>
             <artifactId>crypto</artifactId>
-            <version>f6a793c8d4</version>
+            <version>0.0.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
