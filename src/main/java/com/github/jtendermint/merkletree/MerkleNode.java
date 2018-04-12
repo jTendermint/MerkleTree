@@ -32,6 +32,7 @@ import java.util.Objects;
 import com.github.jtendermint.crypto.ByteUtil;
 import com.github.jtendermint.crypto.HashFunction;
 import com.github.jtendermint.crypto.RipeMD160;
+import com.github.jtendermint.crypto.gowire.WireEncode;
 import com.github.jtendermint.merkletree.byteable.types.IByteable;
 
 public class MerkleNode<K extends IByteable> {
@@ -238,25 +239,25 @@ public class MerkleNode<K extends IByteable> {
         int hashCount = 0;
         // TODO overflow / negative ?
         bos.write((byte) this.height);
-        ByteUtil.writeWithVarint(BigInteger.valueOf(size).toByteArray(), bos);
+        bos.write(WireEncode.writeWithVarint(BigInteger.valueOf(size).toByteArray()));
 
         // TODO what does the following mean?
 
         if (this.height == 0) {
-            ByteUtil.writeWithVarint(this.key.toByteArray(), bos);
+            bos.write(WireEncode.writeWithVarint(key.toByteArray()));
         } else {
             if (this.leftChildNode != null) {
                 HashWithCount leftHashCount = this.leftChildNode.getHashWithCount();
                 this.leftChildHash = Objects.requireNonNull(leftHashCount.hash, "this.leftHash was null in writeHashBytes");
                 hashCount += leftHashCount.count;
             }
-            ByteUtil.writeWithVarint(this.leftChildHash, bos);
+            bos.write(WireEncode.writeWithVarint(this.leftChildHash));
             if (this.rightChildNode != null) {
                 HashWithCount rightHashCount = this.rightChildNode.getHashWithCount();
                 this.rightChildHash = Objects.requireNonNull(rightHashCount.hash, "this.rightHash was null in writeHashBytes");
                 hashCount += rightHashCount.count;
             }
-            ByteUtil.writeWithVarint(this.rightChildHash, bos);
+            bos.write(WireEncode.writeWithVarint(this.rightChildHash));
 
         }
         return hashCount;
