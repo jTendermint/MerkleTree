@@ -108,4 +108,9 @@ public interface IMerkleTree<K extends IByteable> {
      * @return <code>false</code> when nothing has been iterated. true when iteration ended after at least one leaf
      */
     boolean iterateNodes(IterateFunction<K> function);
+
+    /**
+     * Clear this tree by removing the root node. This expectes GC to free all resources, i.e. leafs and nodes
+     */
+    void removeAll();
 }

@@ -125,4 +125,10 @@ public class MerkleTree<K extends IByteable> implements IMerkleTree<K> {
        return new MerkleNode<>(entry);
     }
 
+    @Override
+    public void removeAll() {
+        // resetting the rootNode invalidates all references to child nodes and so forth
+        // GC will remove entries when it next runs
+        this.rootNode = null;
+    }
 }
